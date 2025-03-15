@@ -1,3 +1,4 @@
+import Feed from "@components/Feed";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <p className="desc text-center">
         Promptopia es una herramienta de prompts de IA de código abierto para el mundo moderno para descubrir, crear y compartir prompts creativos
       </p>
+      <Feed />
     </section>
   );
 };
