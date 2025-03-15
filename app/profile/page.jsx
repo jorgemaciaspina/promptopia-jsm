@@ -18,8 +18,8 @@ const MyProfile = () => {
     setPosts(data);
   }
   
-  const handleEdit = async () => {
-    
+  const handleEdit = async (post) => {
+    router.push(`/update-prompt?id=${post._id}`);
   }
 
   const handleDelete = async () => {
