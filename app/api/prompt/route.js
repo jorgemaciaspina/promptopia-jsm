@@ -1,12 +1,22 @@
 import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
-export const GET = async (req) => {
+export const GET = async (request) => {
+
+  const searchQuery = request?.nextUrl?.searchParams.get('searchText');
+  console.log(searchQuery);
   try {
     await connectToDB();
 
-    const prompts = await Prompt.find({}).populate("creator");
+    const prompts = await Prompt.find({
+      $or: [
+        { prompt: { $regex: '.*' + searchQuery + '.*', $options: 'i' } },
+        { tag: { $regex: '.*' + searchQuery + '.*', $options: 'i' } },
+        { "creator.username": { $regex: '.*' + searchQuery + '.*', $options: 'i' } }
+      ]
+    }).populate("creator");
 
+    console.log(prompts);
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
     console.log(error);
