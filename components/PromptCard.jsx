@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from 'next/link'
 
 import Image from "next/image";
@@ -21,7 +21,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   return (
     <div className="prompt_card">
       <div className="flex flex-between items-start gap-5">
-        <Link href={`/profile/${encodeURIComponent(post.creator._id)}`}>
+        <Link href={ session?.user.id === post.creator._id ? "/profile" : `/profile/${encodeURIComponent(post.creator._id)}`}>
           <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
             <Image
               src={post.creator.image}
