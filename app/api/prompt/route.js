@@ -4,19 +4,32 @@ import Prompt from "@models/prompt";
 export const GET = async (request) => {
 
   const searchQuery = request?.nextUrl?.searchParams.get('searchText');
-  console.log(searchQuery);
   try {
     await connectToDB();
 
-    const prompts = await Prompt.find({
-      $or: [
-        { prompt: { $regex: '.*' + searchQuery + '.*', $options: 'i' } },
-        { tag: { $regex: '.*' + searchQuery + '.*', $options: 'i' } },
-        { "creator.username": { $regex: '.*' + searchQuery + '.*', $options: 'i' } }
-      ]
-    }).populate("creator");
+    const prompts = await Prompt.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "creator",
+          foreignField: "_id",
+          as: "creator"
+        }
+      },
+      {
+        $unwind: "$creator"
+      },
+      {
+        $match: {
+          $or: [
+            { prompt: { $regex: searchQuery, $options: 'i' } },
+            { tag: { $regex: searchQuery, $options: 'i' } },
+            { "creator.username": { $regex: searchQuery, $options: 'i' } }
+          ]
+        }
+      }
+    ]);
 
-    console.log(prompts);
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
     console.log(error);
