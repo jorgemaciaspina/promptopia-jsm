@@ -22,9 +22,21 @@ const MyProfile = () => {
     router.push(`/update-prompt?id=${post._id}`);
   }
 
-  const handleDelete = async () => {
-    
-  }
+  const handleDelete = async (post) => {
+    const hasConfirmed = confirm("¿Estás seguro de que desea eliminar este prompt?");
+
+    if (hasConfirmed) {
+      try {
+        await fetch(`/api/prompt/${post._id.toString()}`, {
+          method: 'DELETE'
+        })
+        const filteredPosts = posts.filter((p) => p._id !== post._id);
+        setPosts(filteredPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }    
+  };
 
   useEffect(() => {
     if (session?.user.id) fetchPosts();
