@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# This project was created for learning purposes following the yt video
+[Course](https://www.youtube.com/watch?v=wm5gMKuwSYk&t=202s)
 
-## Getting Started
+I highly recommend the course, it teaches a lot of the basics for nextjs, and it helps you to get on track with other tools, like mongo and vercel in this case.
 
-First, run the development server:
+## There are some changes
+- The tutoral was made for nextjs 13, but I made it in nextjs 15 which means, it's not a 1 to 1 match.
+- I tend to change the language of the text not related to code to spanish, since it helps me to keep my focus on the code however, all the code is in english.
+- I had to make some changes to the css since the background for the textarea and input were not working for me.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## You can checkout the result at this url
+[Promptopia Jorge Macias](https://promptopia-jsxkf3y2r-jorgemaciaspinas-projects.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## To run this project
+If you wanna run this project, you need to configure the environment variables.
+- Change the `.example.env` file to `.env` and update the values.
+- The project is built with the node `v22.14.0`.
+- Just run `npm install`.
+- Start the project with `npm run dev`.
+- Go to your [Localhost](http://localhost:3000)
