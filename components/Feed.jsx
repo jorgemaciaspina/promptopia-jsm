@@ -1,13 +1,20 @@
 'use client';
 
 import { useState, useEffect } from "react";
+import { useDebounce } from "react-use";
 
 import PromptCard from "./PromptCard";
+import { set } from "mongoose";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState('');
   const [posts, setPosts] = useState([]);
-
+  const [debouncedSearchText, setDebouncedSearchText] = useState();
+  
+  useDebounce(() => {
+    console.log('searchText', searchText);
+    setDebouncedSearchText(searchText)
+  }, 500, [searchText]);
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   }
@@ -26,6 +33,10 @@ const Feed = () => {
     )
   }
 
+  const handleTagClick = (tag) => {
+    setSearchText(tag);
+  }
+
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch('/api/prompt');
@@ -36,6 +47,17 @@ const Feed = () => {
 
     fetchPosts();
   }, [])
+
+  useEffect(() => {
+    console.log('debouncedSearchText', debouncedSearchText);
+    const fetchPosts = async () => {
+      const response = await fetch(`/api/prompt?searchText=${debouncedSearchText}`);
+      const data = await response.json();
+
+      setPosts(data);
+    }
+    fetchPosts();
+  }, [debouncedSearchText]);
 
   return (
     <section className="feed">
@@ -52,7 +74,7 @@ const Feed = () => {
 
       <PromptCardList
         data={posts}
-        handleTagClick={() => {}}
+        handleTagClick={handleTagClick}
       />
     </section>
   )
